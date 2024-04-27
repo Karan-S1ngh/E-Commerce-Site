@@ -17,14 +17,7 @@ app.use(cors({
   }));
 
 // Database connection with MongoDB
-mongoose.connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-    useFindAndModify: false
-  })
-  .then(() => console.log('MongoDB connected successfully.'))
-  .catch(err => console.error('Error connecting to MongoDB:', err));
+mongoose.connect(process.env.MONGODB_URL)
 
 // API Creation
 app.get("/",(req,res) => {
