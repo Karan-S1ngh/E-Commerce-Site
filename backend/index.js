@@ -32,11 +32,11 @@ app.get("/",(req,res) => {
 
 // Image Storage Engine 
 const storage = multer.diskStorage({
-    destination: './upload/images',
+    destination: (__dirname, '/upload/images'),
     filename: (req,file,cb) => {
         cb(null,`${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`)
     }
-})
+});
 const upload = multer({storage});
 
 
@@ -86,7 +86,7 @@ app.post("/upload", upload.single("product"), (req, res) => {
     if (req.file) {
         res.json({
             success: true,
-            image_url: `/images/${req.file.filename}`,
+            image_url: `https://e-commerce-site-wt.vercel.app/images/${req.file.filename}`,
         });
     } else {
         res.status(400).json({ success: false, message: 'No file uploaded' });
