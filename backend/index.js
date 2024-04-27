@@ -11,10 +11,7 @@ const cors = require('cors');
 const { userInfo } = require('os');
 
 app.use(express.json());
-app.use(cors({
-    origin: 'https://e-commerce-site-wt.vercel.app/',
-    optionsSuccessStatus: 200
-  }));
+app.use(cors({}));
 
 // Database connection with MongoDB
 mongoose.connect(process.env.MONGODB_URL)
