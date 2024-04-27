@@ -282,7 +282,7 @@ app.post('/getcart', fetchUser, async (req,res) => {
 
 app.listen(process.env.PORT, (error) => {
     if (!error){
-        console.log("Server Running on Port "+port)
+        console.log("Server Running on Port "+ process.env.PORT)
     }
     else{
         console.log("Error : "+error)
