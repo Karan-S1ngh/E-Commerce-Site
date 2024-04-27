@@ -1,4 +1,6 @@
-const port = 4000;
+require('dotenv').config();
+const port = process.env.PORT;
+
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
@@ -12,8 +14,7 @@ app.use(express.json());
 app.use(cors());
 
 // Database connection with MongoDB
-mongoose.connect("mongodb+srv://Karan-Singh:karans9609@cluster0.xtxoass.mongodb.net/e-commerce")
-
+mongoose.connect(process.env.MONGODB_URL)
 
 // API Creation
 app.get("/",(req,res) => {
@@ -175,7 +176,7 @@ app.post('/signup',async (req,res) => {
         }
     }
 
-    const token = jwt.sign(data,'secret_ecom');
+    const token = jwt.sign(data,process.env.SECRET_KEY);
     res.json({success: true, token})
 
 })
@@ -192,7 +193,7 @@ app.post('/login',async (req,res) =>{
                     id: user.id
                 }
             }
-            const token = jwt.sign(data,'secret_ecom');
+            const token = jwt.sign(data,process.env.SECRET_KEY);
             res.json({success: true, token});
         }
         else{
@@ -230,7 +231,7 @@ const fetchUser = async (req, res, next) => {
     }
     else{
         try{
-            const data = jwt.verify(token,'secret_ecom');
+            const data = jwt.verify(token,process.env.SECRET_KEY);
             req.user = data.user;
             next();
         } catch (error) {
