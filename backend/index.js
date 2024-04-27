@@ -11,10 +11,20 @@ const cors = require('cors');
 const { userInfo } = require('os');
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: 'https://e-commerce-site-wt.vercel.app/',
+    optionsSuccessStatus: 200
+  }));
 
 // Database connection with MongoDB
-mongoose.connect(process.env.MONGODB_URL)
+mongoose.connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false
+  })
+  .then(() => console.log('MongoDB connected successfully.'))
+  .catch(err => console.error('Error connecting to MongoDB:', err));
 
 // API Creation
 app.get("/",(req,res) => {
@@ -270,7 +280,7 @@ app.post('/getcart', fetchUser, async (req,res) => {
 })
 
 
-app.listen(port, (error) => {
+app.listen(process.env.PORT, (error) => {
     if (!error){
         console.log("Server Running on Port "+port)
     }
