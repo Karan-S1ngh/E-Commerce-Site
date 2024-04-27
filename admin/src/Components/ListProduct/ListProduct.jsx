@@ -7,7 +7,7 @@ const ListProduct = () => {
   const [allproducts, setAllProducts] = React.useState([]);
 
   const fetchInfo = async () => {
-    await fetch('https://e-commerce-site-backend.vercel.app/allproducts')
+    await fetch('https://e-commerce-site-backend-tt1n.onrender.com/allproducts')
     .then((res) => res.json()).
     then((data => {setAllProducts(data)}));
   }
@@ -17,7 +17,7 @@ const ListProduct = () => {
   },[])
 
   const remove_product = async (id) => {
-    await fetch('https://e-commerce-site-backend.vercel.app/removeproduct', {
+    await fetch('https://e-commerce-site-backend-tt1n.onrender.com/removeproduct', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
