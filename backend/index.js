@@ -34,20 +34,14 @@ app.get("/",(req,res) => {
 const storage = multer.diskStorage({
     destination: './upload/images',
     filename: (req,file,cb) => {
-        return cb(null,`${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`)
+        cb(null,`${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`)
     }
 })
-const upload = multer({storage: storage})
+const upload = multer({storage});
 
 
-// Creating Upload Endpoint for images (not needed after deployment)
-app.use('/images',express.static("upload/images"))
-app.post("/upload",upload.single("product"),(req,res)=>{
-    res.json({
-        success: 1,
-        image_url: `https://e-commerce-site-backend-tt1n.onrender.com/images/${req.file.filename}`
-    })
-})
+// Serve Static images
+app.use('/images',express.static("upload/images"));
 
 
 // Schema for Creating Products
@@ -87,34 +81,29 @@ const Product = mongoose.model("Product",{
 })
 
 
+// Upload endpoint for images
+app.post("/upload", upload.single("product"), (req, res) => {
+    if (req.file) {
+        res.json({
+            success: true,
+            image_url: `/images/${req.file.filename}`,
+        });
+    } else {
+        res.status(400).json({ success: false, message: 'No file uploaded' });
+    }
+});
+
+
 // Creating API for Adding Products
-app.post('/addproduct', async (req,res) =>{
-    let products = await Product.find({});
-    let id;
-    if (products.length > 0){
-        let last_product_array = products.slice(-1);
-        let last_product = last_product_array[0];
-        id = last_product.id + 1;
+app.post('/addproduct', async (req, res) => {
+    try {
+        const product = new Product(req.body);
+        await product.save();
+        res.json({ success: true, product });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
     }
-    else{
-        id = 1;
-    }
-    const product = new Product({
-        id: id,
-        name: req.body.name,
-        image: req.body.image,
-        category: req.body.category,
-        new_price: req.body.new_price,
-        old_price: req.body.old_price,
-    });
-    console.log(product);
-    await product.save();
-    console.log("Saved");
-    res.json({
-        success: true,
-        name: req.body.name,
-    })
-})
+});
 
 
 // Creating API for Deleting Products
