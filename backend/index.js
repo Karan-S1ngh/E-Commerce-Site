@@ -10,6 +10,14 @@ const path = require('path');
 const cors = require('cors');
 const { userInfo } = require('os');
 
+
+// Configure CORS
+const corsOptions = {
+    origin: ['https://e-commerce-site-wt.vercel.app',"https://e-commerce-site-adminpanel.vercel.app"],
+};
+app.use(cors(corsOptions));
+
+
 app.use(express.json());
 app.use(cors());
 
@@ -41,7 +49,6 @@ app.post("/upload",upload.single("product"),(req,res)=>{
     })
 })
 
-//Upload Images folder is only valid for localhost storage not after deployment
 
 // Schema for Creating Products
 const Product = mongoose.model("Product",{
