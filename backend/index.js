@@ -13,7 +13,7 @@ const { userInfo } = require('os');
 
 // Configure CORS
 const corsOptions = {
-    origin: ['https://e-commerce-site-wt.vercel.app',"https://e-commerce-site-adminpanel.vercel.app"],
+    origin: ["https://e-commerce-site-wt.vercel.app","https://e-commerce-site-adminpanel.vercel.app","https://e-commerce-site-backend-tt1n.onrender.com"],
 };
 app.use(cors(corsOptions));
 
@@ -30,7 +30,7 @@ app.get("/",(req,res) => {
 })
 
 
-// Image Storage Engine (not needed after deployment)
+// Image Storage Engine 
 const storage = multer.diskStorage({
     destination: './upload/images',
     filename: (req,file,cb) => {
