@@ -13,15 +13,21 @@ const AddProduct = () => {
     old_price:''
   });
 
-  const imageHandler = (e) => {
-    setImage(e.target.files[0]);
-  }
+  // const imageHandler = (e) => {
+  //   setImage(e.target.files[0]);
+  // }
 
   const changeHandler = (e) => {
     setProductDetails({...productDetails, [e.target.name]: e.target.value});
   }
 
   const Add_Product = async () => {
+
+    if(productDetails.name === '' || productDetails.new_price === '' || productDetails.old_price === '' || productDetails.image === ''){
+      alert('Please fill all the fields');
+      return;
+    }
+
     console.log(productDetails);
     let responseData;
     let product = productDetails;
@@ -29,19 +35,30 @@ const AddProduct = () => {
     let formData = new FormData();
     formData.append('product',image);
 
-    await fetch('https://e-commerce-site-backend-tt1n.onrender.com/upload',{
-      method:'POST',
-      headers:{
-        Accept: 'application/json',
-      },
-      body:formData,
-    }).then((resp) => resp.json()).then((data) => {responseData = data});
+    // await fetch('https://e-commerce-site-backend-tt1n.onrender.com/upload',{
+    //   method:'POST',
+    //   headers:{
+    //     Accept: 'application/json',
+    //   },
+    //   body:formData,
+    // }).then((resp) => resp.json()).then((data) => {responseData = data});
 
-    if(responseData.success){
-      product.image = responseData.image_url;
-      console.log(product); 
-      await fetch('https://e-commerce-site-backend-tt1n.onrender.com/addproduct',{
-        method:'POST',
+    // if(responseData.success){
+    //   product.image = responseData.image_url;
+    //   console.log(product); 
+    //   await fetch('https://e-commerce-site-backend-tt1n.onrender.com/addproduct',{
+    //     method:'POST',
+    //     headers:{
+    //       Accept: 'application/json',
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body:JSON.stringify(product),
+    //   }).then((resp) => resp.json()).then((data) => {
+    //     data.success?alert('Product Added'):alert('Failed')
+    //   });
+    // }
+
+    await fetch('http://localhost:4000/addproduct',{method:'POST',
         headers:{
           Accept: 'application/json',
           'Content-Type': 'application/json',
@@ -50,7 +67,6 @@ const AddProduct = () => {
       }).then((resp) => resp.json()).then((data) => {
         data.success?alert('Product Added'):alert('Failed')
       });
-    }
   }
 
   return (
@@ -77,12 +93,13 @@ const AddProduct = () => {
             <option value="kids">Kids</option>
           </select>
         </div>
-        <div className="addproduct-itemfield">
+        {/* <div className="addproduct-itemfield">
           <label htmlFor="file-input">
             <img src={image?URL.createObjectURL(image):upload_area} className="addproduct-thumnail-img" />
           </label>
           <input onChange={imageHandler} type="file" name='image' id='file-input' hidden />
-        </div>
+        </div> */}
+        <input type="text" name="image" id="" placeholder='URL' onChange={changeHandler} />
         <button onClick={() => {Add_Product()}} className='addproduct-btn'>ADD</button>
     </div>
   )
