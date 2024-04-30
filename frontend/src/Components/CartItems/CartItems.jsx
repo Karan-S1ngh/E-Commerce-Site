@@ -63,7 +63,7 @@ const CartItems = () => {
                 </div>
             </div>
             <div className='feedback'>
-               Want to Provide a Feedback? <a href='http://ecommerce-feedback.great-site.net/'>Click here</a>
+               Want to Provide a Feedback? <a href='https://ecommerce-feedback.great-site.net/'>Click here</a>
             </div>
         </div>
       </div>

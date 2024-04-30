@@ -58,7 +58,7 @@ const AddProduct = () => {
     //   });
     // }
 
-    await fetch('http://localhost:4000/addproduct',{method:'POST',
+    await fetch('https://e-commerce-site-backend-tt1n.onrender.com/addproduct',{method:'POST',
         headers:{
           Accept: 'application/json',
           'Content-Type': 'application/json',
@@ -99,7 +99,10 @@ const AddProduct = () => {
           </label>
           <input onChange={imageHandler} type="file" name='image' id='file-input' hidden />
         </div> */}
-        <input type="text" name="image" id="" placeholder='URL' onChange={changeHandler} />
+        <div className='addproduct-itemfield'>
+          <p>Image URL</p>
+          <input type="text" name="image" placeholder='Paste Image URL here' onChange={changeHandler} />
+        </div>
         <button onClick={() => {Add_Product()}} className='addproduct-btn'>ADD</button>
     </div>
   )
