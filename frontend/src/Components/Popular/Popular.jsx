@@ -7,14 +7,14 @@ const Popular = () => {
   const [popularProducts, setPopularProducts] = React.useState([]);
 
   useEffect(() => {
-    fetch("https://e-commerce-site-backend-tt1n.onrender.com/popularinwomen")
+    fetch("https://e-commerce-site-backend-tt1n.onrender.com/popularinmen")
     .then((response) => response.json())
     .then((data) => setPopularProducts(data));
   },[])
 
   return (
     <div className='popular'>
-        <h1>Popular in Women</h1>
+        <h1>Popular in Men</h1>
         <hr />
         <div className="popular-item">
             {popularProducts.map((item,i)=>{
