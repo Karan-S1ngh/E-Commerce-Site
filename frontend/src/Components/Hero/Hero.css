@@ -36,7 +36,7 @@
     width: 105px;
 }
 
-.hero-latest-btn{
+.hero-latest a{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -49,6 +49,8 @@
     color: white;
     font-size: 22px;
     font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
 }
 
 .hero-right{

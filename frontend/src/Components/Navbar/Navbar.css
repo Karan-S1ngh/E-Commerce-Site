@@ -12,6 +12,12 @@
     gap: 10px;
 }
 
+.nav-link{
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
 .nav-logo p{
     color: #171717;
     font-size: 38px;
